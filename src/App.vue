@@ -1,7 +1,9 @@
 <template>
   <LangSwitcher />
   <div v-if="loading">Loading</div>
-  <router-view v-else />
+  <transition name="fade">
+    <router-view v-if="!loading" />
+  </transition>
   <div v-if="error">{{ error }}</div>
 </template>
 
@@ -37,3 +39,12 @@ export default {
   }
 };
 </script>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.8s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>
